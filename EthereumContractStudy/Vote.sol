@@ -16,9 +16,9 @@ contract Vote {
         string subject;
     }
     
-    function vote(string _subject) public {
+    function vote(string memory _subject) public {
         require(voter[msg.sender] == false);
-        bytes32 hash = keccak256(_subject);
+        bytes32 hash = keccak256(bytes(_subject));
         
         if(subject[hash] == 0) {
             subjectList.push(_subject);
@@ -31,9 +31,8 @@ contract Vote {
         voteCount = voteCount +1;
     }
     
-    function voteCountOf(string _subject) public view returns(uint256) {
-         bytes32 hash = keccak256(_subject);
+    function voteCountOf(string memory _subject) public view returns(uint256) {
+         bytes32 hash = keccak256(bytes(_subject));
          return subject[hash];
     }
-    
 }
